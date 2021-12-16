@@ -1,5 +1,6 @@
 package com.example.roomdatabase.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -15,9 +16,9 @@ interface UserDataDao {
     // @Insert(onConflict = OnConflictStrategy.FAIL) -->
     // @Insert(onConflict = OnConflictStrategy.ROLLBACK) -->
     @Insert
-    fun insert(data: UserData)
+     fun insert(data: UserData)
 
     @Query("SELECT * FROM userdataT")
-     fun getAll(): List<UserData>
+    fun getAll(): List<UserData>
 
 }

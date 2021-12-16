@@ -63,6 +63,7 @@ dependencies {
     //room database
     implementation "androidx.room:room-runtime:2.3.0"
     kapt "androidx.room:room-compiler:2.3.0"
+    implementation "androidx.room:room-ktx:2.3.0" // kotlin & coroutine support
 
 
 
@@ -73,7 +74,6 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
     implementation 'org.jetbrains.anko:anko-common:0.9'
-
 
 
 }
