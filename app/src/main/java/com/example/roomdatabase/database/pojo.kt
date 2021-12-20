@@ -8,8 +8,10 @@ import androidx.room.PrimaryKey
 data class UserData(
     @PrimaryKey(autoGenerate = true) var id: Long?,
     var name: String?,
-   // var nickname:String?,
-    var Gender:String?
+    var Gender:String?,
+    var nickname2:String?,
+    var nickname:String?,
+    var nickname1:String?
         )
 
 /* @PrimaryKey(autoGenerate = true)

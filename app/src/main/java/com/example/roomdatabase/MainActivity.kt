@@ -9,12 +9,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.roomdatabase.database.UserDatabase
 import com.example.roomdatabase.databinding.ActivityMainBinding
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.toast
-import org.jetbrains.anko.uiThread
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 
 class MainActivity : AppCompatActivity(), LifecycleOwner {
     private val TAG: String="MainActivity"
@@ -32,10 +33,12 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
 
         bindingMainBinding.floatingButton.setOnClickListener(onFloatingButtonClick)
 
-        doAsync {
-            //get user data
-           mUserDataList.addAll( userDataBase.userDataDao().getAll())
+        //viewLifecyclerOwner
+        lifecycleScope.launch {
+            //get all the date
+            mUserDataList.addAll( userDataBase.userDataDao().getAll())
         }
+
 
         bindingMainBinding.recyclerView.layoutManager=LinearLayoutManager(this)
         bindingMainBinding.recyclerView.adapter=UserDataAdapter(this@MainActivity,mUserDataList)
@@ -56,16 +59,13 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
             val name=mDialogView.findViewById<EditText>(R.id.dialogNameEt)
             val gender=mDialogView.findViewById<EditText>(R.id.dialogGenderEt)
 
-            doAsync {
+            lifecycleScope.launch(Dispatchers.Main) {
                 // Put the userdata in database
-                userDataBase.userDataDao().insert(UserData(id = null,name.text.toString(),gender.text.toString()))
+               userDataBase.userDataDao().insert(UserData(id = null,name.text.toString(),"df","H",gender.text.toString(),"FG"))
 
-                mUserDataList.add(UserData(id = null,name.text.toString(),gender.text.toString()))
+                mUserDataList.add(UserData(id = null,name.text.toString(),"ee","HZ",gender.text.toString(),"FD"))
                 bindingMainBinding.recyclerView.adapter=UserDataAdapter(this@MainActivity,mUserDataList)
 
-                uiThread {
-                    toast("One record inserted.")
-                }
             }
 
             Log.d(TAG, "onCreate12: ${mUserDataList.size}")
@@ -79,4 +79,6 @@ class MainActivity : AppCompatActivity(), LifecycleOwner {
         }
         //cancel button click of custom layout
     }
+
+
 }

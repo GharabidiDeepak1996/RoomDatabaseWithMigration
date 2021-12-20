@@ -15,10 +15,10 @@ interface UserDataDao {
     // @Insert(onConflict = OnConflictStrategy.REPLACE) -->
     // @Insert(onConflict = OnConflictStrategy.FAIL) -->
     // @Insert(onConflict = OnConflictStrategy.ROLLBACK) -->
+
     @Insert
-     fun insert(data: UserData)
+    suspend fun insert(data:UserData)
 
     @Query("SELECT * FROM userdataT")
-    fun getAll(): List<UserData>
-
+    suspend fun getAll(): List<UserData>
 }
